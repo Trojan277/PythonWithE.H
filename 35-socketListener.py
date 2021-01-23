@@ -27,11 +27,17 @@ class SocketListener:
 
     def command_execution(self, command_input):
         self.json_send(command_input)
+
+        if command_input[0] == 'quit':
+            self.Connection.close()
+            exit()
+
         return self.json_receive()
 
     def start_listener(self):
         while True:
             command_input = raw_input('Enter Command: ')
+            command_input = command_input.split(' ')
             command_output = self.command_execution(command_input)
             print(command_output)
 
