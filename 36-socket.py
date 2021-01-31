@@ -7,8 +7,8 @@ import simplejson
 
 class Socket:
 	def __init__(self, ip, port):
-	self.Connection = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-	self.Connection.connect((ip,port))
+		self.Connection = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+		self.Connection.connect((ip,port))
 
 
 	def command_execution(self, command):
