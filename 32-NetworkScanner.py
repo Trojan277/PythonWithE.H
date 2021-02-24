@@ -1,3 +1,11 @@
+# python 32-NetworkScanner.py --ipaddress 10.0.2.1/24
+# python 32-NetworkScanner.py -i 10.0.2.1/24
+
+# python3 32-NetworkScanner.py --ipaddress 10.0.2.1/24
+# python3 32-NetworkScanner.py -i 10.0.2.1/24
+
+# python2 - python3
+
 import scapy.all as scapy
 import optparse
 
