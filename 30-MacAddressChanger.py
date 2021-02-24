@@ -15,3 +15,5 @@ print('MacChanger started!')
 subprocess.call(['ifconfig',user_interface,'down'])
 subprocess.call(['ifconfig',user_interface,'hw','ether',user_mac_address])
 subprocess.call(['ifconfig',user_interface,'up'])
+
+#python 30-MacAddressChanger.py --interface eth0 --mac (type mac address here)
