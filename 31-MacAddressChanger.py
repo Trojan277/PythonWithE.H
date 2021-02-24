@@ -1,3 +1,9 @@
+
+# python3 31-MacAddressChanger.py --interface eth0 --mac (type new mac address here)
+# python3 31-MacAddressChanger.py -i eth0 -m (type new mac address here)
+
+# python2 - python3
+
 import subprocess
 import optparse
 import re
