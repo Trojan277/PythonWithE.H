@@ -1,5 +1,8 @@
-# python 30-MacAddressChanger.py --interface eth0 --mac (type mac address here)
-# python3 30-MacAddressChanger.py -i eth0 -m (type mac address here)
+# python 30-MacAddressChanger.py --interface eth0 --mac (type new mac address here)
+# python 30-MacAddressChanger.py -i eth0 -m (type new mac address here)
+
+# python3 30-MacAddressChanger.py --interface eth0 --mac (type new mac address here)
+# python3 30-MacAddressChanger.py -i eth0 -m (type new mac address here)
 
 # python2 - python3
 
