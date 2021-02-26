@@ -1,4 +1,5 @@
 # python3 33-arpPoisoning.py -t (target ip address) -g (gateway ip address)
+# python3 33-arpPoisoning.py --target (target ip address) --gateway (gateway ip address)
 
 # python3
 
