@@ -1,3 +1,7 @@
+# python3 33-arpPoisoning.py -t (target ip address) -g (gateway ip address)
+
+# python3
+
 import scapy.all as scapy
 import time
 import optparse
