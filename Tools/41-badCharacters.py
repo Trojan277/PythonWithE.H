@@ -1,3 +1,5 @@
+# python3 41-badCharacters.py
+
 import socket
 import sys
 
